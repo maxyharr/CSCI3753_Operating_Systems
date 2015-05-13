@@ -1,0 +1,23 @@
+decompress the file and navigate inside
+
+create the device file with 
+~$ sudo mknod -m 777 /dev/max_driv c 60 0
+
+make the resource with
+~$ make -C /lib/modules/$(uname -r)/build M=$PWD modules
+
+insert the module with
+~$ sudo insmod max_driv.ko
+
+
+
+the test file is t.rb and is ruby code
+run the test file using
+~$ ruby t.rb
+
+if you need to install ruby
+~$ sudo apt_get install ruby
+
+
+if you want to remove the module (to Make again for example)
+~$ sudo rmmod max_driv

@@ -1,0 +1,16 @@
+pthread_create
+
+int pthread_create(pthread_t *thread, const pthread_attr_t *attr, void *(*start_routine) (void *), oid *arg);
+
+thread: returns the thread id
+
+
+
+
+
+attr: detatched state, shceduling policy, shceduling parameter, stack address, stack size etc
+
+
+
+int pthread_join(pthread_t th, void **thread_return);
+- The pthread_join

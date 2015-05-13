@@ -1,0 +1,72 @@
+
+google.com                       						facebook.com
+twitter      <-- file1.txt ---> | Requester  Threads | -> [ ] [ ] [ ] (shared) -> Resolver Threads >2 -> result 														      FIFO									file (shared) 
+						      if queueIsFull {sleep(full)}
+,
+,
+,
+,
+facebook.com
+yahoo.com
+.
+.
+
+1 request thread per file / multiple hosts per file
+
+// pass fileName and t_id
+Requester_function () {
+	open file;
+	for each line in file:
+		while queue is full:
+			sleep(random);
+		queue.push(line);
+
+	finish[t_id]=true; // or just use a global counter of number of files
+}
+
+
+
+Resolver_function () {
+	while true:
+		if queue is not empty:
+			host_name = queue.pop();
+			IP = findIP(host_name);	
+			write(resultFile, host_name + ", " + IP + "\n");
+		else:
+			for i=0 -> n:
+				if (finish[t_id] == false):
+					done = true;
+				if done:
+					break;
+}
+
+
+
+pthread_mutex_t lock; // how to define a mutex (global) initialize in main function with
+
+pthread_mutex_init(&lock, NULL); 	// NULL indicates default behavior, init in main thread
+pthread_mutex_lock(&lock); 			// to lock the mutex
+pthread_mutex_unlock(&lock); 		// to unlock the mutex
+pthread_mutex_destroy(&lock);		// destroy mutex at the end
+
+
+
+pthread_cond_t cond_var; 				// a condition variable
+pthread_cond_init(&cond_var); 			// initialize in main thread
+pthread_cond_wait(&cond_var, &lock);	// 
+pthread_cond_signal(&cond_var);			//
+
+
+usage:
+lock(mutex)
+// some code //CS (critical section)
+wait(cv, mutex)
+// some code //CS
+unlock(mutex)
+
+lock(mutex)
+// 
+signal(cv, mutex)
+//
+unlock(mutex)
+

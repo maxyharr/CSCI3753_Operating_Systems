@@ -1,0 +1,38 @@
+#include "util.h"
+
+int dnslookup(const char* hostname, char* firstIPstr, int maxSize) {
+	stuct addrinfo* headresult = NULL;
+	struct addrinfo* result  = NULL;
+	struct sockaddr_in& ipv4sock = NULL;
+	struct in_addr* ipv4addr = NULL;
+	char ipv4str[INET_ADDRSTRLEN];
+	char ipstr[INET6_ADDRSTRLEN];
+	int addrError = 0;
+
+	#ifdef UTIL_DEBUG
+		fprintf(stderr, "%s\n", hostname);
+	#endif
+
+
+
+}
+
+
+addrError = getadddrinfo(hostname, NULL, NULL, &headresult);
+if (addrError) {
+	fprintf(stderr, "error looking up address: %s\n", gai_strerror(addr_))
+
+	for (result = headresult; result != NULL; result = resutl->ai_next) {
+		if (result->ai_addr->sa_family == AF_INET) {
+			ipv4sock = (struct sockaddr_in*) (result->ai_addr);
+			ipv4addr = &(ipv4sock->sin_addr);
+			if (!inet_ntop(result->ai_family, ipv4addr, ipv4str, sizeof(ipv4str))){
+
+			}
+		}
+	}
+}
+
+
+
+

@@ -1,0 +1,53 @@
+Getaddinfo() returns
+
+struct addrinfo {
+	int aiflags;
+	int ai_family; **** IPP4 vs IPP6
+	int ai_socktype;
+	int ai_protocol;
+	socklen_t ai_addrlen;
+	struct sockaddr *ai_addr;  ****
+	char *ai_canonname;
+	struct addrinfo *ai_next;  ****
+};
+
+ it takes 4 parameters (hostname, null, null, *linkedlist)
+
+ ===================================================================================
+
+ Addrinfo structure
+ - Ai_Family
+ 	- 0 unspecificed
+  	- 2 IPV4
+  	- 23 IPV6
+
+Sockaddr
+
+struct sockaddr {
+	ushort sa_family;
+	char sa_data[14]; // ******  actual IP address ****** // still needs to be casted to structure below
+};
+
+- Sa_family
+	- AF_INET :IPV4
+	- AF_INET6 :IPV6
+- Sa_data
+	- Protocol data stuff
+- Cast it to ipv4 or ipv6 struct
+
+Have to cast sa_data based on ipv4 or ipv6
+
+cast to sockaddr_in (IPV4)
+struct sockaddr_in {
+	short sin_family;
+	unsigned short sin_port;
+	IN_ADDR sin_addr; ********* convert to string and print in output file
+	char sin_zero[8];
+}
+
+Steps
+get addrifo struct from getaddrinfo
+loop through the linekd list
+check the famiy
+	- addrinfo -> socckaddr -> sa_family
+cast sock_addr to sock_addr_in
